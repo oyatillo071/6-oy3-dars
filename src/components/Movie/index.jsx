@@ -2,13 +2,18 @@ import React from "react";
 import "./index.css";
 import ImgCarousel from "../ImgCarousel";
 
-function Movie(props) {
-  const { data } = props;
+function Movie({ data, likeStatus, toggleLike }) {
   const images = Array.isArray(data.Images) ? data.Images : [];
+
   return (
     <>
       <div className="movie-card">
         <div className="movie-images">
+          <div className="like-section">
+            <button className="like-button" onClick={() => toggleLike(data.id)}>
+              {likeStatus === 1 ? "Unlike" : "Like"}{" "}
+            </button>
+          </div>
           <ImgCarousel images={images}></ImgCarousel>
         </div>
 
@@ -25,47 +30,33 @@ function Movie(props) {
               <h4>
                 Chiqarilgan sana: <span>{data.Released}</span>
               </h4>
-
               <h4>
-                Janr <span>{data.Genre}</span>
+                Janr: <span>{data.Genre}</span>
               </h4>
-
               <h4>
-                Yozuvchi <span>{data.Writer}</span>
+                Yozuvchi: <span>{data.Writer}</span>
               </h4>
-
               <h4>
-                Til <span>{data.Language}</span>
+                Til: <span>{data.Language}</span>
               </h4>
-
               <h4>
-                Mukofotlar <span>{data.Awards}</span>
+                Mukofotlar: <span>{data.Awards}</span>
               </h4>
             </div>
-            {/* 
-
-
-
-
-
-
-      */}
 
             <div className="movie-info">
               <h4>
                 Reyting: <span>{data.Rated}</span>
               </h4>
               <h4>
-                Davomiyligi: <span> {data.Runtime}</span>
+                Davomiyligi: <span>{data.Runtime}</span>
               </h4>
               <h4>
                 Rejissor: <span>{data.Director}</span>
               </h4>
-
               <h4>
                 Aktyorlar: <span>{data.Actors}</span>
               </h4>
-
               <h4>
                 Mamlakatlar: <span>{data.Country}</span>
               </h4>
@@ -73,9 +64,6 @@ function Movie(props) {
                 IMDb reytingi: <span>{data.imdbRating}</span>
               </h4>
             </div>
-            {/* 
-          
-          */}
           </div>
         </div>
       </div>

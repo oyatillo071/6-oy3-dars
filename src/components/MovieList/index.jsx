@@ -1,16 +1,21 @@
 import React from "react";
-import "./index.css";
 import Movie from "../Movie";
+import './index.css'
 
-function MovieList(props) {
-  const { data } = props;
+function MovieList({ data, toggleLike, likes }) {
   return (
-    
-      <div className="movie-wrapper">
-        {data.map((value, index) => {
-          return <Movie key={index} data={value}></Movie>;
-        })}
+    <>
+      <div className="movie-list">
+        {data.map((movie) => (
+          <Movie
+            key={movie.id}
+            data={movie}
+            toggleLike={toggleLike}
+            likeStatus={likes[movie.id] || 0}
+          />
+        ))}
       </div>
+    </>
   );
 }
 

@@ -1,10 +1,24 @@
+import React, { useState, useEffect } from "react";
 import "./App.css";
-import React, { useState } from "react";
 import dataList from "./movies.json";
 import MovieList from "./components/MovieList";
 
 function App() {
-  const [counter, setCounter] = useState(20);
+  const [likes, setLikes] = useState(() => {
+    const savedLikes = localStorage.getItem("likes");
+    return savedLikes ? JSON.parse(savedLikes) : {};
+  });
+
+  const totalLikes = Object.values(likes).filter((like) => like === 1).length;
+
+  const toggleLike = (movieId) => {
+    setLikes((prevLikes) => {
+      const newLikes = { ...prevLikes };
+      newLikes[movieId] = newLikes[movieId] === 1 ? 0 : 1;
+      localStorage.setItem("likes", JSON.stringify(newLikes));
+      return newLikes;
+    });
+  };
 
   return (
     <div>
@@ -23,10 +37,10 @@ function App() {
                 <a href="#">Yangiliklar</a>
               </li>
             </ul>
-            <h3>{counter}</h3>
+            <h3>{totalLikes} ta like</h3>
           </div>
 
-          <MovieList data={dataList} />
+          <MovieList data={dataList} toggleLike={toggleLike} likes={likes} />
         </div>
       </div>
     </div>
