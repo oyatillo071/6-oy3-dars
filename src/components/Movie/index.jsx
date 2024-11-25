@@ -4,11 +4,12 @@ import ImgCarousel from "../ImgCarousel";
 
 function Movie(props) {
   const { data } = props;
+  const images = Array.isArray(data.Images) ? data.Images : [];
   return (
     <>
       <div className="movie-card">
         <div className="movie-images">
-          <ImgCarousel images={data.Image}></ImgCarousel>
+          <ImgCarousel images={images}></ImgCarousel>
         </div>
 
         <div className="info-wrapper">

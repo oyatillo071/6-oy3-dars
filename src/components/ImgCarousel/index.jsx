@@ -1,12 +1,43 @@
-import { Carousel } from "flowbite-react";
+import React, { useState } from "react";
+import "./index.css";
 
-export function Component(props) {
-  const { images } = props;
+const ImgCarousel = ({ images }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    if (currentIndex < images.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    } else {
+      setCurrentIndex(0);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    } else {
+      setCurrentIndex(images.length - 1);
+    }
+  };
+
   return (
-    <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
-      {images.map((value) => {
-        return <Carousel>{value}</Carousel>;
-      })}
+    <div className="carousel-container">
+      <button className="carousel-btn prev" onClick={handlePrev}>
+        &lt;
+      </button>
+
+      <div className="carousel-image">
+        <img
+          src={images[currentIndex]}
+          alt={`carousel-image-${currentIndex}`}
+        />
+      </div>
+
+      <button className="carousel-btn next" onClick={handleNext}>
+        &gt;
+      </button>
     </div>
   );
-}
+};
+
+export default ImgCarousel;
